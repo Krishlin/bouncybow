@@ -32,7 +32,7 @@ func _process(delta):
 		check_wave()
 
 
-# the whole wave has spawned: if every enemy is dead, go to the next wave
+
 func check_wave():
 	if get_child_count() == 0:
 		wave += 1
