@@ -1,19 +1,18 @@
 extends CanvasLayer
-## On-screen HUD: current wave + health in the corner, and a big
-## "Wave cleared!" banner with a screen flash when a wave is beaten.
+# wave + health text in the corner and the big wave cleared thing
 
-var spawner: Node
-var player: Node
+var spawner
+var player
 
-var info_label: Label
-var flash: ColorRect
-var banner: VBoxContainer
-var banner_title: Label
-var banner_sub: Label
-var banner_tween: Tween
+var info_label
+var flash
+var banner
+var banner_title
+var banner_sub
+var tw
 
 
-func _ready() -> void:
+func _ready():
 	layer = 5
 
 	info_label = Label.new()
@@ -23,66 +22,73 @@ func _ready() -> void:
 	info_label.add_theme_constant_override("outline_size", 8)
 	add_child(info_label)
 
+	# yellow screen flash
 	flash = ColorRect.new()
 	flash.color = Color(1, 0.9, 0.4, 0)
 	flash.set_anchors_preset(Control.PRESET_FULL_RECT)
 	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(flash)
 
-	var center := CenterContainer.new()
+	var center = CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(center)
 
 	banner = VBoxContainer.new()
 	banner.add_theme_constant_override("separation", 10)
-	banner.modulate.a = 0.0
+	banner.modulate.a = 0
 	banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	center.add_child(banner)
 
-	banner_title = _make_label(96, Color(1, 0.85, 0.2))
+	banner_title = make_label(96, Color(1, 0.85, 0.2))
 	banner.add_child(banner_title)
-	banner_sub = _make_label(40, Color.WHITE)
+	banner_sub = make_label(40, Color.WHITE)
 	banner.add_child(banner_sub)
 
 
-func _make_label(font_size: int, color: Color) -> Label:
-	var label := Label.new()
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", color)
-	label.add_theme_color_override("font_outline_color", Color.BLACK)
-	label.add_theme_constant_override("outline_size", 12)
-	return label
+func make_label(size, col):
+	var l = Label.new()
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", col)
+	l.add_theme_color_override("font_outline_color", Color.BLACK)
+	l.add_theme_constant_override("outline_size", 12)
+	return l
 
 
-func _process(_delta: float) -> void:
+func _process(_delta):
 	if not is_instance_valid(spawner) or not is_instance_valid(player):
 		return
-	info_label.text = "Wave %d\nHealth %d / %d" % [spawner.wave, max(player.health, 0), player.max_health]
+	var txt = "Wave " + str(spawner.wave) + "\nHealth " + str(max(player.health, 0)) + " / " + str(player.max_health)
+	if is_instance_valid(spawner.boss):
+		txt += "\nBoss " + str(spawner.boss.health) + " / " + str(spawner.boss.max_health)
+		if spawner.boss.is_shielded():
+			txt += "  (SHIELDED)"
+	info_label.text = txt
 
 
-func show_wave_cleared(cleared_wave: int, next_count: int) -> void:
+func show_wave_cleared(cleared_wave, next_count):
 	banner_title.text = "WAVE %d CLEARED!" % cleared_wave
-	banner_sub.text = "Wave %d incoming: %d enemies" % [cleared_wave + 1, next_count]
+	if cleared_wave + 1 == spawner.boss_wave:
+		banner_sub.text = "BOSS INCOMING!"
+	else:
+		banner_sub.text = "Wave %d incoming: %d enemies" % [cleared_wave + 1, next_count]
 
-	if banner_tween:
-		banner_tween.kill()
-	banner.modulate.a = 0.0
+	if tw:
+		tw.kill()
+	banner.modulate.a = 0
 
-	# Wait one frame so the banner resizes to the new text before we scale it.
+	# wait a frame or the size is wrong
 	await get_tree().process_frame
 
-	# Pop the banner in, hold it, then fade out.
 	banner.pivot_offset = banner.size / 2
 	banner.scale = Vector2(0.5, 0.5)
-	banner.modulate.a = 0.0
+	banner.modulate.a = 0
 	flash.color.a = 0.35
 
-	banner_tween = create_tween().set_parallel(true)
-	banner_tween.tween_property(flash, "color:a", 0.0, 0.5)
-	banner_tween.tween_property(banner, "modulate:a", 1.0, 0.25)
-	banner_tween.tween_property(banner, "scale", Vector2.ONE, 0.4) \
-		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	banner_tween.chain().tween_interval(2.0)
-	banner_tween.chain().tween_property(banner, "modulate:a", 0.0, 0.6)
+	tw = create_tween().set_parallel(true)
+	tw.tween_property(flash, "color:a", 0.0, 0.5)
+	tw.tween_property(banner, "modulate:a", 1.0, 0.25)
+	tw.tween_property(banner, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.chain().tween_interval(2.0)
+	tw.chain().tween_property(banner, "modulate:a", 0.0, 0.6)

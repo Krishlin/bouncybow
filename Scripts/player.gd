@@ -5,47 +5,42 @@ const BULLET = preload("res://Scenes/ball.tscn")
 const UPGRADE_MENU = preload("res://Scripts/upgrade_menu.gd")
 var max_health = 3
 var health = 3
-var invulnerable_time = 0.0
+var invuln = 0.0
 
-# Upgradeable stats
+# stuff upgrades change
 var shoot_cooldown = 0.5
 var ball_bounces = 3
 var ball_speed = 800.0
 
 @onready var shoot_timer: Timer = $Timer
 
-func _ready() -> void:
+func _ready():
 	shoot_timer.one_shot = true
 
-func _physics_process(_delta):
-	var direction = Vector2.ZERO
-	if Input.is_action_pressed("right"):
-		direction.x += 1
-	if Input.is_action_pressed("left"):
-		direction.x -= 1
-	if Input.is_action_pressed("down"):
-		direction.y += 1
-	if Input.is_action_pressed("up"):
-		direction.y -= 1
+func _physics_process(delta):
+	var dir = Vector2.ZERO
+	if Input.is_action_pressed("right"): dir.x += 1
+	if Input.is_action_pressed("left"): dir.x -= 1
+	if Input.is_action_pressed("down"): dir.y += 1
+	if Input.is_action_pressed("up"): dir.y -= 1
 
-	velocity = direction.normalized() * speed
+	velocity = dir.normalized() * speed
 	move_and_slide()
 
-	if invulnerable_time > 0:
-		invulnerable_time -= _delta
+	if invuln > 0:
+		invuln -= delta
 
-func take_damage() -> void:
-	
-	if invulnerable_time > 0:
+func take_damage():
+	if invuln > 0:
 		return
 	health -= 1
-	invulnerable_time = 0.5
+	invuln = 0.5
 	if health <= 0:
-		_on_out_of_health()
+		dead()
 
 
-func _on_out_of_health() -> void:
-	# Kill every enemy, pause the game and let the player pick an upgrade.
+func dead():
+	# kill everything, pause, show upgrades
 	get_tree().call_group("enemies", "die")
 	get_tree().call_group("spawner", "restart")
 	get_tree().paused = true
@@ -54,7 +49,7 @@ func _on_out_of_health() -> void:
 	get_tree().current_scene.add_child(menu)
 
 
-func _apply_upgrade(id: String) -> void:
+func _apply_upgrade(id):
 	match id:
 		"max_health":
 			max_health += 1
@@ -67,25 +62,21 @@ func _apply_upgrade(id: String) -> void:
 		"ball_speed":
 			ball_speed *= 1.2
 	health = max_health
-	invulnerable_time = 1.0
+	invuln = 1.0
 	get_tree().paused = false
 
-func spawn_bullet(pos: Vector2, direction: Vector2) -> void:
-	var instance = BULLET.instantiate()
-	instance.add_collision_exception_with(self)
-	get_tree().current_scene.add_child(instance)
-	instance.global_position = pos
-	instance.direction = direction
-	instance.max_bounces = ball_bounces
-	instance.speed = ball_speed
+func spawn_bullet(pos, direction):
+	var b = BULLET.instantiate()
+	b.add_collision_exception_with(self)
+	get_tree().current_scene.add_child(b)
+	b.global_position = pos
+	b.direction = direction
+	b.max_bounces = ball_bounces
+	b.speed = ball_speed
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-
 		if shoot_timer.is_stopped():
-			var mouse: Vector2 = get_global_mouse_position()
-			var dir: Vector2 = (mouse - global_position).normalized()
-			spawn_bullet(global_position, dir)
-
-
+			var d = (get_global_mouse_position() - global_position).normalized()
+			spawn_bullet(global_position, d)
 			shoot_timer.start(shoot_cooldown)
