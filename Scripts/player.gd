@@ -47,6 +47,7 @@ func take_damage() -> void:
 func _on_out_of_health() -> void:
 	# Kill every enemy, pause the game and let the player pick an upgrade.
 	get_tree().call_group("enemies", "die")
+	get_tree().call_group("spawner", "restart")
 	get_tree().paused = true
 	var menu = UPGRADE_MENU.new()
 	menu.upgrade_chosen.connect(_apply_upgrade)
