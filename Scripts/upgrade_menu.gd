@@ -1,11 +1,10 @@
 extends CanvasLayer
-## Pause menu shown when the player runs out of health.
-## Offers 3 random upgrades; picking one applies it and resumes the game.
+
 
 signal upgrade_chosen(id: String)
 
 const UPGRADES = [
-	{"id": "max_health", "title": "+1 Max Health", "desc": "Survive one more hit."},
+	{"id": "max_health", "title": "+1 Masx Health", "desc": "Survive one more hit."},
 	{"id": "speed", "title": "Swift Feet", "desc": "Move 15% faster."},
 	{"id": "fire_rate", "title": "Quick Shot", "desc": "Shoot 20% more often."},
 	{"id": "bounces", "title": "Extra Bounce", "desc": "Balls bounce one more time."},
