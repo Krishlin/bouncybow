@@ -54,12 +54,14 @@ func _physics_process(delta):
 		# boss. with the shield up arrows bounce off it like a wall
 		if not thing.is_shielded():
 			if bounces >= 1:
+				Sfx.play("hit")
 				thing.take_hit()
 			queue_free()
 			return
 	elif thing.is_in_group("enemies"):
 		# has to bounce first or it doesnt kill
 		if bounces >= 1:
+			Sfx.play("hit")
 			thing.die()  # the arrow keeps going so one good shot can get a few of them
 		else:
 			queue_free()

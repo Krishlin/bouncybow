@@ -29,6 +29,7 @@ func _ready():
 		where += "  (Endless)"
 	vbox.add_child(make_label("PAUSED", 80))
 	vbox.add_child(make_label(where, 32))
+	vbox.add_child(make_label("Deaths: %d" % spawner.deaths, 32))
 	vbox.add_child(make_label("Your upgrades", 40))
 
 	# one line per upgrade, in the same order as the upgrade list
