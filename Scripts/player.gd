@@ -1,4 +1,4 @@
-extends Sprite2D
+extends CharacterBody2D
 
 var speed = 600
 const BULLET = preload("res://Scenes/ball.tscn")
@@ -9,7 +9,7 @@ const BULLET = preload("res://Scenes/ball.tscn")
 func _ready() -> void:
 	shoot_timer.one_shot = true
 
-func _process(delta: float) -> void:
+func _physics_process(_delta):
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("right"):
 		direction.x += 1
@@ -19,8 +19,9 @@ func _process(delta: float) -> void:
 		direction.y += 1
 	if Input.is_action_pressed("up"):
 		direction.y -= 1
-		
-	position += direction.normalized() * speed * delta
+
+	velocity = direction.normalized() * speed
+	move_and_slide()
 
 func spawn_bullet(pos: Vector2, direction: Vector2) -> void:
 	var instance = BULLET.instantiate()
@@ -30,11 +31,11 @@ func spawn_bullet(pos: Vector2, direction: Vector2) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		
+
 		if shoot_timer.is_stopped():
 			var mouse: Vector2 = get_global_mouse_position()
 			var dir: Vector2 = (mouse - global_position).normalized()
 			spawn_bullet(global_position, dir)
-			
-			
+
+
 			shoot_timer.start(0.5)

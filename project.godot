@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="gamejamofficial"
-run/main_scene="uid://bqxm46xupkvaq"
+run/main_scene="uid://oyamjv8ffwbh"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Spites/icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1060
 
 [input]
 

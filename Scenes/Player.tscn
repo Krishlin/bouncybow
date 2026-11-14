@@ -3,8 +3,17 @@
 [ext_resource type="Texture2D" uid="uid://bmquwv5kqmhj7" path="res://Spites/icon.svg" id="1_kyqiw"]
 [ext_resource type="Script" uid="uid://b2vbm67p1dr56" path="res://Scripts/player.gd" id="2_gntrk"]
 
-[node name="Player" type="Sprite2D" unique_id=25260558]
-texture = ExtResource("1_kyqiw")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(128, 128)
+
+[node name="Player" type="CharacterBody2D" unique_id=25260558]
+motion_mode = 1
 script = ExtResource("2_gntrk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1418820301]
+texture = ExtResource("1_kyqiw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1418820302]
+shape = SubResource("RectangleShape2D_player")
 
 [node name="Timer" type="Timer" parent="." unique_id=511477269]
