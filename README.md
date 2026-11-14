@@ -7,4 +7,7 @@ Use WASD to move around and left click to shoot. To kill your enemies you must b
 
 itch.io link: https://krishlin.itch.io/bouncy-bow
 
+
+Shaurya Jain and Krish Lingayat
+
 credits for art: https://zerie.itch.io/tiny-rpg-character-asset-pack/download/eyJleHBpcmVzIjoxNzk...
