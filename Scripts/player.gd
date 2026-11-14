@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 var speed = 600
 const BULLET = preload("res://Scenes/ball.tscn")
-
+var health = 3
+var invulnerable_time = 0.0
 
 @onready var shoot_timer: Timer = $Timer
 
@@ -23,8 +24,21 @@ func _physics_process(_delta):
 	velocity = direction.normalized() * speed
 	move_and_slide()
 
+	if invulnerable_time > 0:
+		invulnerable_time -= _delta
+
+func take_damage() -> void:
+	
+	if invulnerable_time > 0:
+		return
+	health -= 1
+	invulnerable_time = 0.5
+	if health <= 0:
+		queue_free()
+
 func spawn_bullet(pos: Vector2, direction: Vector2) -> void:
 	var instance = BULLET.instantiate()
+	instance.add_collision_exception_with(self)
 	get_tree().current_scene.add_child(instance)
 	instance.global_position = pos
 	instance.direction = direction
