@@ -88,6 +88,7 @@ func shoot():
 		aim = Vector2.LEFT if facing_left else Vector2.RIGHT
 	aim = aim.normalized()
 	since_shot = 0.0
+	Sfx.play("shoot")
 
 	var a = ARROW.instantiate()
 	a.direction = aim

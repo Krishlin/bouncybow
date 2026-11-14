@@ -15,6 +15,10 @@ run/main_scene="uid://dqe74s8y8i443"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Spites/icon.svg"
 
+[autoload]
+
+Sfx="*res://Scripts/sfx.gd"
+
 [display]
 
 window/size/viewport_width=1920

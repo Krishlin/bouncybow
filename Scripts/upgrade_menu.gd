@@ -65,5 +65,6 @@ func _ready():
 
 
 func picked(id):
+	Sfx.play("upgrade")
 	upgrade_chosen.emit(id)
 	queue_free()

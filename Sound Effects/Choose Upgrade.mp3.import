@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0b8x7a1igqg2"
+path="res://.godot/imported/Choose Upgrade.mp3-736c834d9159f306f7a072b31d86e066.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Choose Upgrade.mp3"
+dest_files=["res://.godot/imported/Choose Upgrade.mp3-736c834d9159f306f7a072b31d86e066.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

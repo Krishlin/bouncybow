@@ -32,6 +32,7 @@ var state_t = 0.0
 var wave = 1
 var endless = false
 var kills = 0
+var deaths = 0
 var enemies_to_spawn = 0
 var spawn_delay = FIRST_SPAWN_DELAY
 var timer = 0.0
@@ -87,6 +88,7 @@ func start_wave():
 		boss.tier = wave / BOSS_EVERY
 		boss.defeated.connect(_on_boss_defeated)
 		add_child(boss)
+		Sfx.start_music()
 		return
 	enemies_to_spawn = enemy_count(wave)
 	spawn_delay = spawn_delay_for(wave)
@@ -125,6 +127,7 @@ func _process(delta):
 
 
 func wave_cleared(title):
+	Sfx.play("wave_complete")
 	wave += 1
 	state = BREAK
 	state_t = WAVE_BREAK
@@ -164,6 +167,7 @@ func clear_arena():
 	get_tree().call_group("enemies", "despawn")
 	get_tree().call_group("boss_bullets", "despawn")
 	get_tree().call_group("arrows", "queue_free")
+	Sfx.stop_music()
 
 
 # ---------- boss ----------
@@ -171,6 +175,7 @@ func clear_arena():
 func _on_boss_defeated():
 	kills += 1
 	get_tree().call_group("boss_bullets", "despawn")
+	Sfx.stop_music()
 	player.health = player.max_health  # full heal for winning
 	state = BOSS_DEAD
 	state_t = 1.6
@@ -180,10 +185,11 @@ func show_victory():
 	state = MENU
 	get_tree().paused = true
 	hud.hide_banner()
+	Sfx.play("victory")
 	var s = EndScreen.new()
 	s.title_text = "VICTORY!"
 	s.title_color = Color(1, 0.85, 0.2)
-	s.body_text = "You beat the boss!\nEnemies defeated: %d" % kills
+	s.body_text = "You beat the boss!\nEnemies defeated: %d\nDeaths: %d" % [kills, deaths]
 	s.buttons = [
 		["endless", "Endless Mode\nKeep your upgrades and see how far you get.\nBoss every 5 waves."],
 		["new_run", "New Run\nStart over from wave 1 and try different upgrades."],
@@ -208,6 +214,8 @@ func _on_end_screen_choice(id):
 # ---------- dying ----------
 
 func _on_player_died():
+	deaths += 1
+	Sfx.play("wave_lost")
 	state = PLAYER_DEAD
 	state_t = 1.0
 	clear_arena()
@@ -222,7 +230,7 @@ func show_death_menu():
 		var s = EndScreen.new()
 		s.title_text = "GAME OVER"
 		s.title_color = Color(1, 0.35, 0.3)
-		s.body_text = "You made it to wave %d in endless mode.\nEnemies defeated: %d" % [wave, kills]
+		s.body_text = "You made it to wave %d in endless mode.\nEnemies defeated: %d\nDeaths: %d" % [wave, kills, deaths]
 		s.buttons = [
 			["new_run", "New Run\nStart over from wave 1 and try different upgrades."],
 			["menu", "Main Menu"],
@@ -255,6 +263,7 @@ func new_run():
 	endless = false
 	wave = 1
 	kills = 0
+	deaths = 0
 	state = MENU
 	get_tree().paused = true
 	var menu = UpgradeMenu.new()
@@ -282,6 +291,7 @@ func begin_attempt():
 
 
 func go_to_main_menu():
+	Sfx.stop_music()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 
