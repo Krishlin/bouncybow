@@ -1,14 +1,14 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" uid="uid://b0yonn66ye3ni" path="res://Spites/image-removebg-preview.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://bsb7ewko5dfvi" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Arrow(Projectile)/Arrow01(32x32).png" id="1_arrow"]
 [ext_resource type="Script" path="res://Scripts/boss_bullet.gd" id="2_script"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bb"]
-radius = 16.0
+radius = 11.0
 
 [node name="BossBullet" type="CharacterBody2D"]
-collision_layer = 4
-collision_mask = 1
+collision_layer = 16
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("2_script")
 
@@ -16,6 +16,7 @@ script = ExtResource("2_script")
 shape = SubResource("CircleShape2D_bb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.25, 0.25, 1)
-scale = Vector2(0.08, 0.08)
-texture = ExtResource("1_tex")
+modulate = Color(1, 0.55, 0.5, 1)
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("1_arrow")

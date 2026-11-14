@@ -1,16 +1,24 @@
 extends CharacterBody2D
+# arrows the boss shoots. red outline = bad, dodge these
+
+const OUTLINE = preload("res://Scripts/outline.gdshader")
 
 var direction = Vector2.ZERO
-var speed = 350.0
-var max_bounces = 3
+var speed = 380.0
+var max_bounces = 1
 var bounces = 0
 
 
 func _ready():
-	add_to_group("enemies") # so they get wiped when you die
+	add_to_group("boss_bullets")  # so they get wiped when you die or the boss does
+	rotation = direction.angle()
+	var mat = ShaderMaterial.new()
+	mat.shader = OUTLINE
+	mat.set_shader_parameter("outline_width", 1.0)
+	$Sprite2D.material = mat
 
 
-func die():
+func despawn():
 	queue_free()
 
 
@@ -24,11 +32,12 @@ func _physics_process(delta):
 		# its the player
 		c.take_damage()
 		queue_free()
-	elif c is StaticBody2D:
-		if bounces >= max_bounces:
-			queue_free()
-			return
-		bounces += 1
-		direction = direction.bounce(hit.get_normal())
-	else:
-		add_collision_exception_with(c)  # player balls, ignore
+		return
+
+	# wall
+	if bounces >= max_bounces:
+		queue_free()
+		return
+	bounces += 1
+	direction = direction.bounce(hit.get_normal())
+	rotation = direction.angle()

@@ -1,19 +1,23 @@
 [gd_scene format=3 uid="uid://da47dqq5n7c31"]
 
-[ext_resource type="Texture2D" uid="uid://bmquwv5kqmhj7" path="res://Spites/icon.svg" id="1_icon"]
 [ext_resource type="Script" uid="uid://cy4r1cqg1m8d8" path="res://Scripts/boss.gd" id="2_script"]
+[ext_resource type="SpriteFrames" path="res://Animations/orc_frames.tres" id="3_frames"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_boss"]
-radius = 100.0
+radius = 85.0
 
 [node name="Boss" type="CharacterBody2D" unique_id=1460355756]
+collision_layer = 4
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("2_script")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=752373483]
-modulate = Color(0.7, 0.3, 1, 1)
-scale = Vector2(1.6, 1.6)
-texture = ExtResource("1_icon")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.8, 0.45, 1, 1)
+texture_filter = 1
+scale = Vector2(12, 12)
+sprite_frames = ExtResource("3_frames")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=986681168]
 shape = SubResource("CircleShape2D_boss")
