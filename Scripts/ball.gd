@@ -51,7 +51,6 @@ func _physics_process(delta):
 
 	var thing = col.get_collider()
 	if thing.has_method("take_hit"):
-		# boss. with the shield up arrows bounce off it like a wall
 		if not thing.is_shielded():
 			if bounces >= 1:
 				thing.take_hit()

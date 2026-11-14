@@ -35,7 +35,7 @@ theme_override_constants/separation = 30
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1821093314]
 layout_mode = 2
 theme_override_font_sizes/font_size = 96
-text = "Bounce Back"
+text = "Bouncy Bow"
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1553916332]

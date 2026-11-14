@@ -1,10 +1,10 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://c24wnswm7dn8y"]
 
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Death.png" id="1_xmwmd"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Hurt.png" id="2_wrk7c"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Idle.png" id="3_fef3r"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Attack03.png" id="4_cn1d2"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Walk.png" id="5_j3qk6"]
+[ext_resource type="Texture2D" uid="uid://cggwt3aq4d0gw" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Death.png" id="1_xmwmd"]
+[ext_resource type="Texture2D" uid="uid://cwvacq8ktkt8f" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Hurt.png" id="2_wrk7c"]
+[ext_resource type="Texture2D" uid="uid://c2ekxom1twwoj" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Idle.png" id="3_fef3r"]
+[ext_resource type="Texture2D" uid="uid://dqy7ky627k5rk" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Attack03.png" id="4_cn1d2"]
+[ext_resource type="Texture2D" uid="uid://bg7ba04t6ji5v" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Soldier/Soldier/Soldier_Walk.png" id="5_j3qk6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bbvin"]
 atlas = ExtResource("1_xmwmd")

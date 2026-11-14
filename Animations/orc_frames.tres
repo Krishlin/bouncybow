@@ -1,11 +1,11 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://u50c3c845g4l"]
 
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Attack01.png" id="1_4pmu6"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Attack02.png" id="2_kxnjs"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Death.png" id="3_qhofe"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Hurt.png" id="4_3byjc"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Idle.png" id="5_wc0e3"]
-[ext_resource type="Texture2D" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Walk.png" id="6_tbny4"]
+[ext_resource type="Texture2D" uid="uid://c57olq15qgnun" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Attack01.png" id="1_4pmu6"]
+[ext_resource type="Texture2D" uid="uid://cyojax7nci4hx" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Attack02.png" id="2_kxnjs"]
+[ext_resource type="Texture2D" uid="uid://lwhp7r0dykp4" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Death.png" id="3_qhofe"]
+[ext_resource type="Texture2D" uid="uid://l7ddbeswmfrg" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Hurt.png" id="4_3byjc"]
+[ext_resource type="Texture2D" uid="uid://braimjaihete5" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Idle.png" id="5_wc0e3"]
+[ext_resource type="Texture2D" uid="uid://ck03rsjqjg0fl" path="res://Spites/Tiny RPG Character Asset Pack 01 v2.0 -Free Soldier&Orc/Characters(100x100 split)/Orc/Orc/Orc_Walk.png" id="6_tbny4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xyrc7"]
 atlas = ExtResource("1_4pmu6")
