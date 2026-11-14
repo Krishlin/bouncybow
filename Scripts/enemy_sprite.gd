@@ -18,7 +18,7 @@ func die():
 func _physics_process(delta):
 	if not is_instance_valid(player):
 		return
-	var speed = player.speed * 0.5
+	var speed = player.speed * 0.3
 	velocity = position.direction_to(player.position) * speed + knockback
 	move_and_slide()
 
