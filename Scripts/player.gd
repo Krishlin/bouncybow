@@ -1,26 +1,40 @@
 extends Sprite2D
 
+var speed = 600
+const BULLET = preload("res://Scenes/ball.tscn")
 
-var speed = 300
 
+@onready var shoot_timer: Timer = $Timer
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	shoot_timer.one_shot = true
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var direction = Vector2.ZERO
-	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("right"):
 		direction.x += 1
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("left"):
 		direction.x -= 1
-	
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("down"):
 		direction.y += 1
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("up"):
 		direction.y -= 1
 		
 	position += direction.normalized() * speed * delta
+
+func spawn_bullet(pos: Vector2, direction: Vector2) -> void:
+	var instance = BULLET.instantiate()
+	get_tree().current_scene.add_child(instance)
+	instance.global_position = pos
+	instance.direction = direction
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		
+		if shoot_timer.is_stopped():
+			var mouse: Vector2 = get_global_mouse_position()
+			var dir: Vector2 = (mouse - global_position).normalized()
+			spawn_bullet(global_position, dir)
+			
+			
+			shoot_timer.start(0.5)
