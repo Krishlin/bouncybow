@@ -25,6 +25,7 @@ func _physics_process(_delta):
 
 func spawn_bullet(pos: Vector2, direction: Vector2) -> void:
 	var instance = BULLET.instantiate()
+	instance.add_collision_exception_with(self)
 	get_tree().current_scene.add_child(instance)
 	instance.global_position = pos
 	instance.direction = direction
