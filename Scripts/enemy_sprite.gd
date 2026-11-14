@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var player: Node2D
 
-var knockback_strength = 600  
+var knockback_strength = 1000  
 var knockback_fade = 1500     
 var knockback = Vector2.ZERO  
 
@@ -18,7 +18,7 @@ func die():
 func _physics_process(delta):
 	if not is_instance_valid(player):
 		return
-	var speed = player.speed * 0.5
+	var speed = player.speed * 0.3
 	velocity = position.direction_to(player.position) * speed + knockback
 	move_and_slide()
 

@@ -4,7 +4,7 @@ var ENEMY = preload("res://Scenes/Enemy.tscn")
 @export var player: Node2D
 
 var spawn_time = 2.0  
-var max_enemies = 5   
+var max_enemies = 4   
 var timer = 0.0
 
 
@@ -26,4 +26,4 @@ func spawn_enemy():
 	
 	enemy.position = spot
 	add_child(enemy)
-	player.speed += 400
+	
