@@ -15,6 +15,7 @@ func _physics_process(delta: float) -> void:
 			# Otherwise the ball just disappears.
 			if bounces >= 1:
 				collider.die()
+				
 			else:
 				queue_free()
 			return
